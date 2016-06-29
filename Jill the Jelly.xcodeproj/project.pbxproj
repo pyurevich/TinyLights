@@ -1,0 +1,358 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E905B9BB1C9A8361006928E5 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E905B9BA1C9A8361006928E5 /* Launch Screen.storyboard */; };
+		E90926A31C93F6EB00683584 /* DimmableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90926A21C93F6EB00683584 /* DimmableProtocol.swift */; };
+		E9400A161D1396FE003368B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9400A141D1396FE003368B1 /* Main.storyboard */; };
+		E9400A391D237496003368B1 /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9400A381D237496003368B1 /* Story.swift */; };
+		E9400A3B1D237886003368B1 /* StoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9400A3A1D237886003368B1 /* StoryManager.swift */; };
+		E9439D7B1C915D9500E83C59 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9439D7A1C915D9500E83C59 /* PopoverViewController.swift */; };
+		E9439D841C927BBF00E83C59 /* starring- Jill the Jelly.png in Resources */ = {isa = PBXBuildFile; fileRef = E9439D801C927BBF00E83C59 /* starring- Jill the Jelly.png */; };
+		E9439D851C927BBF00E83C59 /* a fablemore tale.png in Resources */ = {isa = PBXBuildFile; fileRef = E9439D811C927BBF00E83C59 /* a fablemore tale.png */; };
+		E9439D8C1C928C8600E83C59 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E9439D8B1C928C8600E83C59 /* Settings.bundle */; };
+		E9D7204A1C8A853B000A75E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D720491C8A853B000A75E2 /* AppDelegate.swift */; };
+		E9D7204C1C8A853B000A75E2 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D7204B1C8A853B000A75E2 /* MainViewController.swift */; };
+		E9D720511C8A853B000A75E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9D720501C8A853B000A75E2 /* Assets.xcassets */; };
+		E9FB31211CAA2FE80009BD52 /* 1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E9FB31201CAA2FE80009BD52 /* 1.mp3 */; };
+		E9FB31231CAA38640009BD52 /* bg_grey_large.png in Resources */ = {isa = PBXBuildFile; fileRef = E9FB31221CAA38640009BD52 /* bg_grey_large.png */; };
+		E9FB312F1CB4BF460009BD52 /* bg4.png in Resources */ = {isa = PBXBuildFile; fileRef = E9FB312E1CB4BF460009BD52 /* bg4.png */; };
+		E9FE56FF1CF554D10058B44A /* screen.png in Resources */ = {isa = PBXBuildFile; fileRef = E9FE56FE1CF554D10058B44A /* screen.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		E905B9BA1C9A8361006928E5 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		E90926A21C93F6EB00683584 /* DimmableProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DimmableProtocol.swift; sourceTree = "<group>"; };
+		E9400A151D1396FE003368B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E9400A381D237496003368B1 /* Story.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
+		E9400A3A1D237886003368B1 /* StoryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryManager.swift; sourceTree = "<group>"; };
+		E9439D7A1C915D9500E83C59 /* PopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
+		E9439D801C927BBF00E83C59 /* starring- Jill the Jelly.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "starring- Jill the Jelly.png"; sourceTree = "<group>"; };
+		E9439D811C927BBF00E83C59 /* a fablemore tale.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "a fablemore tale.png"; sourceTree = "<group>"; };
+		E9439D8B1C928C8600E83C59 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		E9D720461C8A853B000A75E2 /* Jill the Jelly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Jill the Jelly.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9D720491C8A853B000A75E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		E9D7204B1C8A853B000A75E2 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		E9D720501C8A853B000A75E2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E9D720551C8A853B000A75E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E9FB31201CAA2FE80009BD52 /* 1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 1.mp3; sourceTree = "<group>"; };
+		E9FB31221CAA38640009BD52 /* bg_grey_large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_grey_large.png; sourceTree = "<group>"; };
+		E9FB312E1CB4BF460009BD52 /* bg4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg4.png; sourceTree = "<group>"; };
+		E9FE56FE1CF554D10058B44A /* screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screen.png; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E9D720431C8A853B000A75E2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E9400A3C1D237FB5003368B1 /* StoryMP3s */ = {
+			isa = PBXGroup;
+			children = (
+				E9FB31201CAA2FE80009BD52 /* 1.mp3 */,
+			);
+			name = StoryMP3s;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		E9D7203D1C8A853B000A75E2 = {
+			isa = PBXGroup;
+			children = (
+				E9439D8B1C928C8600E83C59 /* Settings.bundle */,
+				E9D720481C8A853B000A75E2 /* Jill The Jelly */,
+				E9D720471C8A853B000A75E2 /* Products */,
+				E9439D801C927BBF00E83C59 /* starring- Jill the Jelly.png */,
+				E9439D811C927BBF00E83C59 /* a fablemore tale.png */,
+				E9FB31221CAA38640009BD52 /* bg_grey_large.png */,
+				E9FB312E1CB4BF460009BD52 /* bg4.png */,
+				E9FE56FE1CF554D10058B44A /* screen.png */,
+			);
+			sourceTree = "<group>";
+		};
+		E9D720471C8A853B000A75E2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E9D720461C8A853B000A75E2 /* Jill the Jelly.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E9D720481C8A853B000A75E2 /* Jill The Jelly */ = {
+			isa = PBXGroup;
+			children = (
+				E9D720491C8A853B000A75E2 /* AppDelegate.swift */,
+				E9439D7A1C915D9500E83C59 /* PopoverViewController.swift */,
+				E9400A381D237496003368B1 /* Story.swift */,
+				E9400A3A1D237886003368B1 /* StoryManager.swift */,
+				E90926A21C93F6EB00683584 /* DimmableProtocol.swift */,
+				E9400A141D1396FE003368B1 /* Main.storyboard */,
+				E905B9BA1C9A8361006928E5 /* Launch Screen.storyboard */,
+				E9D7204B1C8A853B000A75E2 /* MainViewController.swift */,
+				E9D720501C8A853B000A75E2 /* Assets.xcassets */,
+				E9400A3C1D237FB5003368B1 /* StoryMP3s */,
+				E9D720551C8A853B000A75E2 /* Info.plist */,
+			);
+			name = "Jill The Jelly";
+			path = TinyLights;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E9D720451C8A853B000A75E2 /* Jill the Jelly */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E9D720581C8A853B000A75E2 /* Build configuration list for PBXNativeTarget "Jill the Jelly" */;
+			buildPhases = (
+				E9D720421C8A853B000A75E2 /* Sources */,
+				E9D720431C8A853B000A75E2 /* Frameworks */,
+				E9D720441C8A853B000A75E2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Jill the Jelly";
+			productName = TinyLights;
+			productReference = E9D720461C8A853B000A75E2 /* Jill the Jelly.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E9D7203E1C8A853B000A75E2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Pavel Yurevich";
+				TargetAttributes = {
+					E9D720451C8A853B000A75E2 = {
+						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = 4R2XNW45T6;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = E9D720411C8A853B000A75E2 /* Build configuration list for PBXProject "Jill the Jelly" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E9D7203D1C8A853B000A75E2;
+			productRefGroup = E9D720471C8A853B000A75E2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E9D720451C8A853B000A75E2 /* Jill the Jelly */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E9D720441C8A853B000A75E2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9439D841C927BBF00E83C59 /* starring- Jill the Jelly.png in Resources */,
+				E9400A161D1396FE003368B1 /* Main.storyboard in Resources */,
+				E9FE56FF1CF554D10058B44A /* screen.png in Resources */,
+				E9FB312F1CB4BF460009BD52 /* bg4.png in Resources */,
+				E905B9BB1C9A8361006928E5 /* Launch Screen.storyboard in Resources */,
+				E9439D8C1C928C8600E83C59 /* Settings.bundle in Resources */,
+				E9FB31211CAA2FE80009BD52 /* 1.mp3 in Resources */,
+				E9439D851C927BBF00E83C59 /* a fablemore tale.png in Resources */,
+				E9D720511C8A853B000A75E2 /* Assets.xcassets in Resources */,
+				E9FB31231CAA38640009BD52 /* bg_grey_large.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E9D720421C8A853B000A75E2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9439D7B1C915D9500E83C59 /* PopoverViewController.swift in Sources */,
+				E9D7204C1C8A853B000A75E2 /* MainViewController.swift in Sources */,
+				E90926A31C93F6EB00683584 /* DimmableProtocol.swift in Sources */,
+				E9D7204A1C8A853B000A75E2 /* AppDelegate.swift in Sources */,
+				E9400A391D237496003368B1 /* Story.swift in Sources */,
+				E9400A3B1D237886003368B1 /* StoryManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		E9400A141D1396FE003368B1 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E9400A151D1396FE003368B1 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E9D720561C8A853B000A75E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Pavel Yurevich (4R2XNW45T6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Pavel Yurevich (4R2XNW45T6)";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "7f375f7d-f7fe-4d1c-a998-423adf602298";
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E9D720571C8A853B000A75E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Pavel Yurevich (4R2XNW45T6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Pavel Yurevich (4R2XNW45T6)";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "7f375f7d-f7fe-4d1c-a998-423adf602298";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E9D720591C8A853B000A75E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = TinyLights/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.fablemore.tinytales;
+				PRODUCT_NAME = "Jill the Jelly";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Debug;
+		};
+		E9D7205A1C8A853B000A75E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = TinyLights/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.fablemore.tinytales;
+				PRODUCT_NAME = "Jill the Jelly";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E9D720411C8A853B000A75E2 /* Build configuration list for PBXProject "Jill the Jelly" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E9D720561C8A853B000A75E2 /* Debug */,
+				E9D720571C8A853B000A75E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E9D720581C8A853B000A75E2 /* Build configuration list for PBXNativeTarget "Jill the Jelly" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E9D720591C8A853B000A75E2 /* Debug */,
+				E9D7205A1C8A853B000A75E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E9D7203E1C8A853B000A75E2 /* Project object */;
+}

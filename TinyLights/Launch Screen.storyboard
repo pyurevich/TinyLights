@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Llm-lL-Icb"/>
+                        <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_grey_large.png" translatesAutoresizingMaskIntoConstraints="NO" id="wzN-hy-WgK">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TinyTales" translatesAutoresizingMaskIntoConstraints="NO" id="FbR-O3-zQS">
+                                <rect key="frame" x="0.0" y="175" width="600" height="250"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="ICb-4o-dnR"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="wzN-hy-WgK" secondAttribute="trailing" id="9nt-Jw-Fc3"/>
+                            <constraint firstItem="wzN-hy-WgK" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="topMargin" id="LHd-gu-oTJ"/>
+                            <constraint firstItem="FbR-O3-zQS" firstAttribute="centerX" secondItem="wzN-hy-WgK" secondAttribute="centerX" id="QMO-yF-vYK"/>
+                            <constraint firstItem="FbR-O3-zQS" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="RWg-Ff-kKd"/>
+                            <constraint firstAttribute="trailing" secondItem="FbR-O3-zQS" secondAttribute="trailing" id="SIt-eI-USH"/>
+                            <constraint firstItem="wzN-hy-WgK" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" id="XBN-cI-W5X"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="wzN-hy-WgK" secondAttribute="bottom" id="aY6-cc-H7W"/>
+                            <constraint firstItem="FbR-O3-zQS" firstAttribute="centerY" secondItem="wzN-hy-WgK" secondAttribute="centerY" id="d6Y-Ij-Su2"/>
+                            <constraint firstItem="FbR-O3-zQS" firstAttribute="leading" secondItem="wzN-hy-WgK" secondAttribute="trailing" constant="-600" id="oe5-Yz-r2u"/>
+                            <constraint firstItem="wzN-hy-WgK" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="urc-1N-v7V"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="XBN-cI-W5X"/>
+                                <exclude reference="oe5-Yz-r2u"/>
+                            </mask>
+                        </variation>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="53" y="375"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="TinyTales" width="263" height="263"/>
+        <image name="bg_grey_large.png" width="3915" height="3840"/>
+    </resources>
+</document>

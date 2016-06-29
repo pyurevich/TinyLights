@@ -27,6 +27,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+//        let prefs = NSUserDefaults.standardUserDefaults()
+//        let rem = prefs.boolForKey("remember")
+//        let viewCtrl = self.window?.rootViewController as! ViewController
+//        let current = viewCtrl.storyAudio.currentTime
+//        if rem {
+//            print(1)
+//            prefs.setValue(current, forKey: "lastPos")
+//        } else {
+//            print(2)
+//            prefs.removeObjectForKey("lasPos")
+//        }
+//        prefs.synchronize()
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
@@ -39,6 +51,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        
+        let prefs = NSUserDefaults.standardUserDefaults()
+        //let rem = prefs.boolForKey("remember")
+        let viewCtrl = self.window?.rootViewController as! MainViewController
+        let current = viewCtrl.storyAudio.currentTime
+        //print(rem)
+        //if rem {
+        prefs.setValue(current, forKey: "lastPos")
+        //print("Saved!")
+        //} else {
+        //    prefs.removeObjectForKey("lasPos")
+        //}
+        prefs.synchronize()
+        
+        
     }
 
 
