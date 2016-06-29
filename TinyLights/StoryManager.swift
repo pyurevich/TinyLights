@@ -22,6 +22,16 @@ class StoryManager {
         }
     }
     
+    func getPlayableStories() -> [Story] {
+        var temp = [Story]()
+        for story in stories {
+            if story.mp3DataAvailable {
+                temp.append(story)
+            }
+        }
+        return temp
+    }
+    
     func getStories() -> [Story] {
         return stories
     }
