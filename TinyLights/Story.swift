@@ -12,24 +12,42 @@ import UIKit
 class Story {
     
     let storyName: String
-    var mp3Path: String
+    var mp3Name: String
+    var mp3Path: String = String()
+    var mp3DataAvailable = false
     var storyIcon: UIImage = UIImage()
-    var mainImage: UIImage
-    var title: UIImage
-    var starringTitle: UIImage
+    var mainImage: UIImage = UIImage()
+    var title: UIImage = UIImage()
+    var starringTitle: UIImage = UIImage()
     
-    init(name: String, icon: UIImage) {
+    init(name: String, mp3: String) {
         storyName = name
-        storyIcon = icon
+        mp3Name = mp3
     }
     
-    func complete(mp3Name: String, topImage: UIImage, midImage: UIImage, botImage: UIImage ) {
+    func addImageAssets(topImage: UIImage, midImage: UIImage, botImage: UIImage ) {
         //storyName = name
         //storyIcon = icon
-        mp3Path = NSBundle.mainBundle().pathForResource(mp3Name, ofType: "mp3")!
         mainImage = topImage
         title = topImage
         starringTitle = botImage
+    }
+    
+    func tryMP3() -> Bool {
+        if let mp3Available = NSBundle.mainBundle().pathForResource(mp3Name, ofType: "mp3") {
+            mp3Path = mp3Available
+            mp3DataAvailable = true
+            print("For story \(storyName), mp3 data is available")
+            return true
+        } else {
+            print("For story \(storyName), mp3 data is NOT available")
+            return false
+            
+        }
+    }
+    
+    func ready() -> Bool {
+        return mp3DataAvailable
     }
     
     func getMP3() -> String {

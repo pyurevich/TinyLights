@@ -14,7 +14,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable {
     
     var storySession: AVAudioSession!
     var storyAudio: AVAudioPlayer! = nil
-    let path = NSBundle.mainBundle().pathForResource("1", ofType: "mp3")!
+    let path = NSBundle.mainBundle().pathForResource("las", ofType: "mp3")!
     let dimLevel: CGFloat = 0.5
     let dimSpeed: Double = 0.5
     let ffrwTime: NSTimeInterval = 10
