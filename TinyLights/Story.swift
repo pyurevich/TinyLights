@@ -11,9 +11,16 @@ import UIKit
 
 class Story {
     
+    enum status {
+        case Ready
+        case DownloadNeeded
+        case NotAvailable
+    }
+    
+    var readiness = status.NotAvailable
     let storyName: String
     var mp3Name: String
-    var mp3Path: String = String()
+    var mp3Path: NSURL = NSURL()
     var mp3DataAvailable = false
     var storyIcon: UIImage = UIImage()
     var mainImage: UIImage = UIImage()
@@ -35,8 +42,9 @@ class Story {
     
     func tryMP3() -> Bool {
         if let mp3Available = NSBundle.mainBundle().pathForResource(mp3Name, ofType: "mp3") {
-            mp3Path = mp3Available
+            mp3Path = NSURL(fileURLWithPath: mp3Available)
             mp3DataAvailable = true
+            readiness = .Ready
             print("For story \(storyName), mp3 data is available")
             return true
         } else {
@@ -46,11 +54,15 @@ class Story {
         }
     }
     
+    func getStatus() -> Story.status {
+        return readiness 
+    }
+    
     func ready() -> Bool {
         return mp3DataAvailable
     }
     
-    func getMP3() -> String {
+    func getMP3() -> NSURL {
         return mp3Path
     }
     

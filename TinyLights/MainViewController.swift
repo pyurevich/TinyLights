@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 import AVFoundation
 
-class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable {
+class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable, PlaySongDelegate {
     
     var storySession: AVAudioSession!
     var storyAudio: AVAudioPlayer! = nil
@@ -19,16 +19,44 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable {
     let dimSpeed: Double = 0.5
     let ffrwTime: NSTimeInterval = 10
     let playPos = 3
+    var currentStory = Int()
+    
+    let stories = StoryManager.sharedInstance
     
     @IBOutlet weak var toolbar: UIView!
     @IBOutlet weak var playBtn: UIButton!
     @IBOutlet weak var scrubber: UISlider!
     @IBOutlet weak var timer: UILabel!
     
+    func didFinishSelecting(songInList: Int) {
+        
+        var currentlyPlaying = false
+        
+        if storyAudio.playing {
+            currentlyPlaying = true
+        }
+        
+        do {
+            storySession = AVAudioSession.sharedInstance()
+            try storySession.setCategory(AVAudioSessionCategoryPlayback)
+            try storySession.setActive(true)
+            storyAudio = try AVAudioPlayer(contentsOfURL: (stories.getNext(songInList)?.getMP3())!)
+            storyAudio.delegate = self
+            storyAudio.prepareToPlay()
+            currentStory = songInList
+        } catch {
+            // couldn't load file :( - nothing for now
+        }
+        
+        print("Tag is \(songInList) + \((stories.getNext(songInList)?.getMP3())!)")
+        
+        if playBtn.selected {
+            play("")
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let stories = StoryManager()
         
         toolbar.layer.shadowColor = UIColor.blackColor().CGColor
         toolbar.layer.shadowOpacity = 0.6
@@ -70,8 +98,9 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable {
     }
     
     func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
-        playBtn.selected = !playBtn.selected
-        performSegueWithIdentifier("next", sender: self)
+        //playBtn.selected = !playBtn.selected
+        //performSegueWithIdentifier("next", sender: self)
+        next(UIButton())
     }
     
     func updateScrubber() {
@@ -90,15 +119,17 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable {
     
     @IBAction func play(sender: AnyObject) {
         
+        print("is playing \(storyAudio.playing)")
+        
         if storyAudio.playing {
             storyAudio.pause()
-            playBtn.selected = !playBtn.selected
+            playBtn.selected = false
 
         } else {
             storyAudio.play()
             let displayLink = CADisplayLink(target: self, selector: (#selector(MainViewController.updateScrubber)))
             displayLink.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSDefaultRunLoopMode)
-            playBtn.selected = !playBtn.selected
+            playBtn.selected = true
         }
     }
     
@@ -155,6 +186,28 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable {
         }
     }
     
+    @IBAction func previous(sender: UIButton) {
+        if let next = stories.getNext(currentStory-1) {
+            if next.ready() {
+                didFinishSelecting(currentStory-1)
+                return
+            }
+        }
+        performSegueWithIdentifier("next", sender: self)
+    }
+    
+    @IBAction func next(sender: UIButton) {
+        
+        if let next = stories.getNext(currentStory+1) {
+            if next.ready() {
+                didFinishSelecting(currentStory+1)
+                return
+            }
+        }
+        performSegueWithIdentifier("next", sender: self)
+        playBtn.selected = false
+    }
+    
     @IBAction func clear(segue: UIStoryboardSegue) {
         dim(.Out, speed: dimSpeed)
     }
@@ -165,8 +218,17 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
+        print("Yay")
+        
+        
         if segue.identifier == "next" {
             dim(.In, alpha: dimLevel, speed: dimSpeed)
+        } else if segue.identifier == "list" {
+            if let navVC = segue.destinationViewController as? UINavigationController {
+                if let destVC = navVC.topViewController as? ListOfStories {
+                    destVC.delegate = self
+                }
+            }
         }
     }
 }

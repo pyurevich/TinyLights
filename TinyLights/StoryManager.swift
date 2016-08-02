@@ -11,8 +11,10 @@ import UIKit
 
 class StoryManager {
     
+    static let sharedInstance = StoryManager()
+    
     var stories = [Story]()
-    var allStories = [("Lost at Sea","las")]
+    var allStories = [("Lost at Sea","las"), ("On a Treasure Hunt","las"), ("Fish and Chips","las1"), ("Open Water","las1"), ("Critter Fritter","las2")]
     
     init() {
         for story in allStories {
@@ -42,7 +44,7 @@ class StoryManager {
     
     func getNext(index: Int) -> Story? {
         
-        if stories.endIndex >= index {
+        if index <= stories.endIndex && index >= stories.startIndex {
             return stories[index]
         } else {
             return nil
