@@ -14,29 +14,135 @@ protocol PlaySongDelegate {
     func didFinishSelecting(songInList: Int)
 }
 
-class ListOfStories: UITableViewController, AVAudioPlayerDelegate {
+class ListOfStories: UITableViewController, AVAudioPlayerDelegate, NSURLSessionDownloadDelegate, UIDocumentInteractionControllerDelegate {
     
     var delegate: PlaySongDelegate?
+        
+    @IBOutlet var storyTable: UITableView!
+    
+    var downloadTask: NSURLSessionDownloadTask!
+    var backgroundSession: NSURLSession!
+    var progressView = UIProgressView()
+    var currentlyDownloading: Int? = nil
+    
     
     @IBAction func rrr(sender: UIButton) {
-        if sender.titleLabel?.text == "Play" {
-            print("Label for play!")
-            
-            print("Tag is \(sender.tag)")
+        if sender.titleLabel?.text == " " {
             delegate!.didFinishSelecting(sender.tag)
-           
             self.dismissViewControllerAnimated(true, completion: {})
             
         } else if sender.titleLabel?.text == "Download" {
-            print("Label for download")
+            print("Label for download - sender tag \(sender.tag)")
+            downloadTask = nil
+            currentlyDownloading = sender.tag
+            let index = NSIndexPath(forRow: sender.tag, inSection: 0)
+            let cell = tableView.cellForRowAtIndexPath(index)
+            progressView = (cell as! ListCell).progress
+            progressView.setProgress(0.0, animated: false)
+            progressView.hidden = false
+            (cell as! ListCell).listButton.setTitle("Downloading", forState: UIControlState.Normal)
+            
+            
+            let backgroundSessionConfiguration = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier("backgroundSession\(sender.tag)")
+            backgroundSession = NSURLSession(configuration: backgroundSessionConfiguration, delegate: self, delegateQueue: NSOperationQueue.mainQueue())
+            
+            startDownload(sender.tag)
+            
+            
+            
+            
+            
+        } else if sender.titleLabel?.text == "Now Playing" {
+            self.dismissViewControllerAnimated(true, completion: {})
         } else {
             print("Label is different!")
         }
     }
     
+    func startDownload(index: Int) {
+        let url = NSURL(string: "http://mp3fb.com/static/-tMg1d63tSlpnIUZWvHZsPRutMJAxg3lDnm8izG4jPY/Queen%2B-%2BBohemian%2BRaphsody.mp3")!
+        downloadTask = backgroundSession.downloadTaskWithURL(url)
+        downloadTask.resume()
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        print("View reloaded")
+
+
+    }
+        
+        // 1
+        func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didFinishDownloadingToURL location: NSURL){
+            
+            //print("Location: \(location)")
+            
+            let path = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+            let documentDirectoryPath:String = path[0]
+            let fileManager = NSFileManager()
+            let destinationURLForFile = NSURL(fileURLWithPath: documentDirectoryPath.stringByAppendingString("/jill_v2.mp3"))
+            
+            print(currentlyDownloading)
+            
+            if fileManager.fileExistsAtPath(destinationURLForFile.path!){
+                //showFileWithPath(destinationURLForFile.path!)
+                StoryManager.sharedInstance.setFile(currentlyDownloading!, storyURL: destinationURLForFile)
+                let cell = (storyTable.cellForRowAtIndexPath(NSIndexPath(forRow: currentlyDownloading!, inSection: 0)) as! ListCell)
+                cell.listButton.titleLabel?.text = " "
+                cell.listImage.alpha = 1
+                cell.ListTitle.alpha = 1
+                cell.backgroundColor = UIColor(white: 1, alpha: 1.0)
+            }
+            else{
+                do {
+                    try fileManager.moveItemAtURL(location, toURL: destinationURLForFile)
+                    StoryManager.sharedInstance.setFile(currentlyDownloading!, storyURL: destinationURLForFile)
+                    let cell = (storyTable.cellForRowAtIndexPath(NSIndexPath(forRow: currentlyDownloading!, inSection: 0)) as! ListCell)
+                    cell.listButton.titleLabel?.text = " "
+                    cell.listImage.alpha = 1
+                    cell.ListTitle.alpha = 1
+                    cell.backgroundColor = UIColor(white: 1, alpha: 1.0)
+                    // show file
+                    //showFileWithPath(destinationURLForFile.path!)
+                }catch{
+                    print("An error occurred while moving file to destination url")
+                }
+            }
+            downloadTask.cancel()
+            backgroundSession.finishTasksAndInvalidate()
+            //backgroundSession.finalize()
+        }
+        // 2
+        func URLSession(session: NSURLSession,
+                        downloadTask: NSURLSessionDownloadTask,
+                        didWriteData bytesWritten: Int64,
+                                     totalBytesWritten: Int64,
+                                     totalBytesExpectedToWrite: Int64){
+            progressView.setProgress(Float(totalBytesWritten)/Float(totalBytesExpectedToWrite), animated: true)
+        }
+        
+        
+        func URLSession(session: NSURLSession,
+                        task: NSURLSessionTask,
+                        didCompleteWithError error: NSError?){
+            
+            downloadTask = nil
+            progressView.hidden = true
+            //progressView.setProgress(0.0, animated: true)
+            if (error != nil) {
+                print(error?.description)
+            }else{
+                print("The task finished transferring data successfully")
+            }
+        }
+
+    
+
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         rrr((tableView.cellForRowAtIndexPath(indexPath) as! ListCell).listButton)
-        tableView.cellForRowAtIndexPath(indexPath)!.selected = false
+        //tableView.cellForRowAtIndexPath(indexPath)!.selected = false
     }
 
     
@@ -46,12 +152,26 @@ class ListOfStories: UITableViewController, AVAudioPlayerDelegate {
         
         (cell as! ListCell).listButton.tag = indexPath.row
         
+        (cell as! ListCell).progress.hidden = true
+        
+        
         if StoryManager.sharedInstance.getNext(indexPath.row)!.ready() {
-            (cell as! ListCell).listButton.setTitle("Play", forState: UIControlState.Normal)
+            (cell as! ListCell).listButton.setTitle(" ", forState: UIControlState.Normal)
         
         } else {
             (cell as! ListCell).listButton.setTitle("Download", forState: UIControlState.Normal)
+            (cell as! ListCell).listImage.alpha = 0.5
+            (cell as! ListCell).ListTitle.alpha = 0.5
+            (cell as! ListCell).backgroundColor = UIColor(white: 0.9, alpha: 1.0)
             
+            cell.selectionStyle = .None
+            
+        }
+        
+        if StoryManager.sharedInstance.currentStory == indexPath.row {
+            (cell as! ListCell).listButton.setTitle("Now Playing", forState: UIControlState.Normal)
+            (cell as! ListCell).listButton.userInteractionEnabled = false
+            //(cell as! ListCell).userInteractionEnabled = false
         }
         
         
@@ -72,4 +192,38 @@ class ListOfStories: UITableViewController, AVAudioPlayerDelegate {
         print("segued")
     }
     
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        if StoryManager.sharedInstance.getNext(indexPath.row)!.ready() {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.Delete) {
+            print("Made it to deletion)")
+            // handle delete (by removing the data from your array and updating the tableview)
+            let fileManager = NSFileManager()
+            let destinationURLForFile = StoryManager.sharedInstance.getNext(indexPath.row)?.mp3Path!
+            do {
+                try fileManager.removeItemAtURL(destinationURLForFile!)
+            } catch {
+                //handle errors
+            }
+            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+            StoryManager.sharedInstance.getNext(indexPath.row)!.mp3DataAvailable = false
+            
+            let cell = tableView.cellForRowAtIndexPath(indexPath)
+            
+            (cell as! ListCell).listButton.setTitle("Download", forState: UIControlState.Normal)
+            (cell as! ListCell).listImage.alpha = 0.5
+            (cell as! ListCell).ListTitle.alpha = 0.5
+            (cell as! ListCell).backgroundColor = UIColor(white: 0.9, alpha: 1.0)
+            
+            cell!.selectionStyle = .None
+            //tableView.cellForRowAtIndexPath(indexPath)?.setEditing(false, animated: true)
+            //cell.setEditing(false, animated:true)
+        }
+    }
 }

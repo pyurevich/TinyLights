@@ -11,9 +11,9 @@ import UIKit
 
 class ListCell : UITableViewCell {
     
-    
     @IBOutlet weak var listButton: UIButton!
     @IBOutlet weak var listImage: UIImageView!
     @IBOutlet weak var ListTitle: UILabel!
+    @IBOutlet weak var progress: UIProgressView!
     
 }

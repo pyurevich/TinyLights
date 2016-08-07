@@ -20,7 +20,7 @@ class Story {
     var readiness = status.NotAvailable
     let storyName: String
     var mp3Name: String
-    var mp3Path: NSURL = NSURL()
+    var mp3Path: NSURL? = nil
     var mp3DataAvailable = false
     var storyIcon: UIImage = UIImage()
     var mainImage: UIImage = UIImage()
@@ -41,16 +41,41 @@ class Story {
     }
     
     func tryMP3() -> Bool {
+        
+        //print("Mp3Path is \(String(mp3Path))")
         if let mp3Available = NSBundle.mainBundle().pathForResource(mp3Name, ofType: "mp3") {
             mp3Path = NSURL(fileURLWithPath: mp3Available)
             mp3DataAvailable = true
             readiness = .Ready
-            print("For story \(storyName), mp3 data is available")
+            print("For story \(storyName), mp3 data is stored in the bundle")
             return true
         } else {
-            print("For story \(storyName), mp3 data is NOT available")
+            print("For story \(storyName), mp3 data is NOT stored in the bundle")
+        }
+        
+        let path = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+        let documentDirectoryPath:String = path[0]
+        let fileManager = NSFileManager()
+        let destinationURLForFile = NSURL(fileURLWithPath: documentDirectoryPath.stringByAppendingString("/\(mp3Name).mp3"))
+        
+        if fileManager.fileExistsAtPath(destinationURLForFile.path!){
+            mp3Path = NSURL(fileURLWithPath: destinationURLForFile.path!)
+            mp3DataAvailable = true
+            readiness = .Ready
+            print("For story \(storyName), mp3 data is stored on device")
+            return true
+        } else {
+            print("For story \(storyName), mp3 data is NOT stored on device")
+        }
+        
+        if mp3Path != nil {
+            mp3DataAvailable = true
+            readiness = .Ready
+            print("For story \(storyName), mp3 data is available somewhere")
+            return true
+        } else {
+            print("For story \(storyName), mp3 data is NOT available anywhere")
             return false
-            
         }
     }
     
@@ -63,7 +88,7 @@ class Story {
     }
     
     func getMP3() -> NSURL {
-        return mp3Path
+        return mp3Path!
     }
     
     func getImages() -> (UIImage, UIImage, UIImage) {

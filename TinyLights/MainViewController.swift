@@ -16,6 +16,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable, Pla
     var storyAudio: AVAudioPlayer! = nil
     let path = NSBundle.mainBundle().pathForResource("las", ofType: "mp3")!
     let dimLevel: CGFloat = 0.5
+    var dimmed = false
     let dimSpeed: Double = 0.5
     let ffrwTime: NSTimeInterval = 10
     let playPos = 3
@@ -30,12 +31,6 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable, Pla
     
     func didFinishSelecting(songInList: Int) {
         
-        var currentlyPlaying = false
-        
-        if storyAudio.playing {
-            currentlyPlaying = true
-        }
-        
         do {
             storySession = AVAudioSession.sharedInstance()
             try storySession.setCategory(AVAudioSessionCategoryPlayback)
@@ -48,11 +43,15 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable, Pla
             // couldn't load file :( - nothing for now
         }
         
+        stories.currentStory = songInList
+        
+        
         print("Tag is \(songInList) + \((stories.getNext(songInList)?.getMP3())!)")
         
         if playBtn.selected {
             play("")
         }
+        checkTime()
     }
     
     override func viewDidLoad() {
@@ -68,16 +67,19 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable, Pla
         scrubber.setThumbImage(UIImage(named: "scrubber.png"), forState: UIControlState.Highlighted)
         
         
-        let url = NSURL(fileURLWithPath: path)
-        do {
-            storySession = AVAudioSession.sharedInstance()
-            try storySession.setCategory(AVAudioSessionCategoryPlayback)
-            try storySession.setActive(true)
-            storyAudio = try AVAudioPlayer(contentsOfURL: url)
-            storyAudio.delegate = self
-            storyAudio.prepareToPlay()
-        } catch {
-            // couldn't load file :( - nothing for now
+        if let url = stories.getNext(0)!.mp3Path {
+            do {
+                storySession = AVAudioSession.sharedInstance()
+                try storySession.setCategory(AVAudioSessionCategoryPlayback)
+                try storySession.setActive(true)
+                storyAudio = try AVAudioPlayer(contentsOfURL: url)
+                storyAudio.delegate = self
+                storyAudio.prepareToPlay()
+            } catch {
+                // couldn't load file :( - nothing for now
+            }
+        } else {
+            print("URL does not exist")
         }
         
         let prefs = NSUserDefaults.standardUserDefaults()
@@ -205,15 +207,20 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable, Pla
             }
         }
         performSegueWithIdentifier("next", sender: self)
+        storyAudio.stop()
         playBtn.selected = false
     }
     
     @IBAction func clear(segue: UIStoryboardSegue) {
         dim(.Out, speed: dimSpeed)
+        dimmed = false
     }
     
     @IBAction func backToMain(segue: UIStoryboardSegue) {
-        
+        if dimmed {
+            dim(.Out, speed: dimSpeed)
+            dimmed = false
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -223,6 +230,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable, Pla
         
         if segue.identifier == "next" {
             dim(.In, alpha: dimLevel, speed: dimSpeed)
+            dimmed = true
         } else if segue.identifier == "list" {
             if let navVC = segue.destinationViewController as? UINavigationController {
                 if let destVC = navVC.topViewController as? ListOfStories {

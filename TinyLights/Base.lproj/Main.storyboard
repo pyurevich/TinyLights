@@ -264,6 +264,10 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="F0Q-J1-hyN">
+                                            <rect key="frame" x="96" y="69" width="486" height="2"/>
+                                            <color key="progressTintColor" red="0.28627450980000002" green="0.69411764710000001" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        </progressView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="QSR-8j-qCp" firstAttribute="top" secondItem="Lgk-5u-Itu" secondAttribute="topMargin" id="6wZ-lr-IUA"/>
@@ -272,7 +276,10 @@
                                         <constraint firstAttribute="trailingMargin" secondItem="QSR-8j-qCp" secondAttribute="trailing" constant="10" id="OMb-Td-Aaq"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="8bV-3G-1md" secondAttribute="bottom" id="T0r-XP-zOt"/>
                                         <constraint firstItem="8bV-3G-1md" firstAttribute="top" secondItem="Lgk-5u-Itu" secondAttribute="topMargin" id="UGV-Xy-Vcc"/>
+                                        <constraint firstItem="F0Q-J1-hyN" firstAttribute="bottom" secondItem="Lgk-5u-Itu" secondAttribute="bottomMargin" id="ZI7-t0-c2u"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="QSR-8j-qCp" secondAttribute="bottom" id="cIN-1T-UWj"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="F0Q-J1-hyN" secondAttribute="trailing" constant="10" id="gac-88-SqJ"/>
+                                        <constraint firstItem="F0Q-J1-hyN" firstAttribute="leading" secondItem="Lgk-5u-Itu" secondAttribute="leadingMargin" constant="88" id="msL-kg-R5e"/>
                                         <constraint firstItem="8bV-3G-1md" firstAttribute="leading" secondItem="Lgk-5u-Itu" secondAttribute="leadingMargin" constant="10" id="oEZ-Mk-pSn"/>
                                         <constraint firstItem="4AQ-gZ-gLJ" firstAttribute="leading" secondItem="8bV-3G-1md" secondAttribute="trailing" constant="15" id="vD8-WF-8ZC"/>
                                     </constraints>
@@ -281,6 +288,7 @@
                                     <outlet property="ListTitle" destination="4AQ-gZ-gLJ" id="rdS-sI-FRG"/>
                                     <outlet property="listButton" destination="QSR-8j-qCp" id="lfI-lT-Xe5"/>
                                     <outlet property="listImage" destination="8bV-3G-1md" id="4XR-pP-v1q"/>
+                                    <outlet property="progress" destination="F0Q-J1-hyN" id="Eql-DJ-hbt"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -298,6 +306,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="storyTable" destination="H8l-5y-91p" id="7D3-k4-HXe"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gPk-Yb-iPy" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Iar-Mv-eIm" userLabel="Exit" sceneMemberID="exit"/>

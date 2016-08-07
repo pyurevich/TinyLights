@@ -13,8 +13,10 @@ class StoryManager {
     
     static let sharedInstance = StoryManager()
     
+    var currentStory = 0
+    
     var stories = [Story]()
-    var allStories = [("Lost at Sea","las"), ("On a Treasure Hunt","las"), ("Fish and Chips","las1"), ("Open Water","las1"), ("Critter Fritter","las2")]
+    var allStories = [("Lost at Sea","las"), ("On a Treasure Hunt","las"), ("Fish and Chips","jill_v2"), ("Open Water","las1"), ("Critter Fritter","las2")]
     
     init() {
         for story in allStories {
@@ -34,6 +36,15 @@ class StoryManager {
         return temp
     }
     
+    func setFile(index: Int, storyURL: NSURL) {
+        if let updatedStory = getNext(index) {
+            updatedStory.mp3Path = storyURL
+            updatedStory.tryMP3()
+        } else {
+            print("Story with index \(index) does not exist!")
+        }
+    }
+    
     func getStories() -> [Story] {
         return stories
     }
@@ -44,7 +55,7 @@ class StoryManager {
     
     func getNext(index: Int) -> Story? {
         
-        if index <= stories.endIndex && index >= stories.startIndex {
+        if index < stories.endIndex && index >= stories.startIndex {
             return stories[index]
         } else {
             return nil
