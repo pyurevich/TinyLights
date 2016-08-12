@@ -14,7 +14,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable, Pla
     
     var storySession: AVAudioSession!
     var storyAudio: AVAudioPlayer! = nil
-    let path = NSBundle.mainBundle().pathForResource("las", ofType: "mp3")!
+    let path = NSBundle.mainBundle().pathForResource("jill1", ofType: "mp3")!
     let dimLevel: CGFloat = 0.5
     var dimmed = false
     let dimSpeed: Double = 0.5
@@ -52,6 +52,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable, Pla
             play("")
         }
         checkTime()
+        updateScrubber()
     }
     
     override func viewDidLoad() {

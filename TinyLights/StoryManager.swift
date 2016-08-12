@@ -16,7 +16,7 @@ class StoryManager {
     var currentStory = 0
     
     var stories = [Story]()
-    var allStories = [("Lost at Sea","las"), ("On a Treasure Hunt","las"), ("Fish and Chips","jill_v2"), ("Open Water","las1"), ("Critter Fritter","las2")]
+    var allStories = [("Lost at Sea","jill1"), ("On a Treasure Hunt","jill2"), ("Fish and Chips","jill_v2"), ("Open Water","jill_v2"), ("Critter Fritter","jill_v2")]
     
     init() {
         for story in allStories {

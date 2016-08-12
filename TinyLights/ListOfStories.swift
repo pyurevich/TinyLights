@@ -60,7 +60,12 @@ class ListOfStories: UITableViewController, AVAudioPlayerDelegate, NSURLSessionD
     }
     
     func startDownload(index: Int) {
-        let url = NSURL(string: "http://mp3fb.com/static/-tMg1d63tSlpnIUZWvHZsPRutMJAxg3lDnm8izG4jPY/Queen%2B-%2BBohemian%2BRaphsody.mp3")!
+        
+        let currentDownload = StoryManager.sharedInstance.getNext(index)!.mp3Name
+        
+        let url = NSURL(string: "http://www.fablemore.com/assets/\(currentDownload).mp3")!
+        
+        print(url)
         downloadTask = backgroundSession.downloadTaskWithURL(url)
         downloadTask.resume()
     }
@@ -81,7 +86,7 @@ class ListOfStories: UITableViewController, AVAudioPlayerDelegate, NSURLSessionD
             let path = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
             let documentDirectoryPath:String = path[0]
             let fileManager = NSFileManager()
-            let destinationURLForFile = NSURL(fileURLWithPath: documentDirectoryPath.stringByAppendingString("/jill_v2.mp3"))
+            let destinationURLForFile = NSURL(fileURLWithPath: documentDirectoryPath.stringByAppendingString("/jill_v\(currentlyDownloading!).mp3"))
             
             print(currentlyDownloading)
             
@@ -89,20 +94,22 @@ class ListOfStories: UITableViewController, AVAudioPlayerDelegate, NSURLSessionD
                 //showFileWithPath(destinationURLForFile.path!)
                 StoryManager.sharedInstance.setFile(currentlyDownloading!, storyURL: destinationURLForFile)
                 let cell = (storyTable.cellForRowAtIndexPath(NSIndexPath(forRow: currentlyDownloading!, inSection: 0)) as! ListCell)
-                cell.listButton.titleLabel?.text = " "
-                cell.listImage.alpha = 1
-                cell.ListTitle.alpha = 1
-                cell.backgroundColor = UIColor(white: 1, alpha: 1.0)
+//                cell.listButton.titleLabel?.text = " "
+//                cell.listImage.alpha = 1
+//                cell.ListTitle.alpha = 1
+//                cell.backgroundColor = UIColor(white: 1, alpha: 1.0)
+                cell.setState(.Ready)
             }
             else{
                 do {
                     try fileManager.moveItemAtURL(location, toURL: destinationURLForFile)
                     StoryManager.sharedInstance.setFile(currentlyDownloading!, storyURL: destinationURLForFile)
                     let cell = (storyTable.cellForRowAtIndexPath(NSIndexPath(forRow: currentlyDownloading!, inSection: 0)) as! ListCell)
-                    cell.listButton.titleLabel?.text = " "
-                    cell.listImage.alpha = 1
-                    cell.ListTitle.alpha = 1
-                    cell.backgroundColor = UIColor(white: 1, alpha: 1.0)
+//                    cell.listButton.titleLabel?.text = " "
+//                    cell.listImage.alpha = 1
+//                    cell.ListTitle.alpha = 1
+//                    cell.backgroundColor = UIColor(white: 1, alpha: 1.0)
+                    cell.setState(.Ready)
                     // show file
                     //showFileWithPath(destinationURLForFile.path!)
                 }catch{
@@ -148,34 +155,37 @@ class ListOfStories: UITableViewController, AVAudioPlayerDelegate, NSURLSessionD
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("StoryEntry")!
+        let cell = (tableView.dequeueReusableCellWithIdentifier("StoryEntry")! as! ListCell)
         
-        (cell as! ListCell).listButton.tag = indexPath.row
-        
-        (cell as! ListCell).progress.hidden = true
+        cell.listButton.tag = indexPath.row
+        cell.progress.hidden = true
         
         
         if StoryManager.sharedInstance.getNext(indexPath.row)!.ready() {
-            (cell as! ListCell).listButton.setTitle(" ", forState: UIControlState.Normal)
+            //(cell as! ListCell).listButton.setTitle(" ", forState: UIControlState.Normal)
+            cell.setState(.Ready)
+            
         
         } else {
-            (cell as! ListCell).listButton.setTitle("Download", forState: UIControlState.Normal)
-            (cell as! ListCell).listImage.alpha = 0.5
-            (cell as! ListCell).ListTitle.alpha = 0.5
-            (cell as! ListCell).backgroundColor = UIColor(white: 0.9, alpha: 1.0)
-            
-            cell.selectionStyle = .None
+//            (cell as! ListCell).listButton.setTitle("Download", forState: UIControlState.Normal)
+//            (cell as! ListCell).listImage.alpha = 0.5
+//            (cell as! ListCell).ListTitle.alpha = 0.5
+//            (cell as! ListCell).backgroundColor = UIColor(white: 0.9, alpha: 1.0)
+//            cell.selectionStyle = .None
+            cell.setState(.Download)
             
         }
         
         if StoryManager.sharedInstance.currentStory == indexPath.row {
-            (cell as! ListCell).listButton.setTitle("Now Playing", forState: UIControlState.Normal)
-            (cell as! ListCell).listButton.userInteractionEnabled = false
+            //cell.listButton.setTitle("Now Playing", forState: UIControlState.Normal)
+            //cell.listButton.userInteractionEnabled = false
             //(cell as! ListCell).userInteractionEnabled = false
+            
+            cell.setState(.Playing)
         }
         
         
-        (cell as! ListCell).ListTitle.text = StoryManager.sharedInstance.getNext(indexPath.row)?.getName()
+        cell.ListTitle.text = StoryManager.sharedInstance.getNext(indexPath.row)?.getName()
         
         return cell
     }
