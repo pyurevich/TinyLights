@@ -16,9 +16,9 @@ class PopoverViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         popupView.layer.cornerRadius = 10
-        popupView.layer.borderColor = UIColor.blackColor().CGColor
+        popupView.layer.borderColor = UIColor.black.cgColor
         popupView.layer.borderWidth = 0.25
-        popupView.layer.shadowColor = UIColor.blackColor().CGColor
+        popupView.layer.shadowColor = UIColor.black.cgColor
         popupView.layer.shadowOpacity = 0.6
         popupView.layer.shadowRadius = 15
         popupView.layer.shadowOffset = CGSize(width: 5, height: 5)

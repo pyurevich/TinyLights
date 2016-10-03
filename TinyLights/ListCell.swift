@@ -15,50 +15,58 @@ class ListCell : UITableViewCell {
     @IBOutlet weak var listImage: UIImageView!
     @IBOutlet weak var ListTitle: UILabel!
     @IBOutlet weak var progress: UIProgressView!
-    private var state = status.None
+    fileprivate var state = status.ready
+    var cellIndex = Int()
+    
+    func associatedStory() -> Story? {
+        if let storyExists = StoryManager.sharedInstance.getNext(cellIndex) {
+            return storyExists
+        }
+        return nil
+    }
     
     enum status {
-        case Ready, Download, Downloading, Waiting, Playing, None
+        case ready, download, downloading, playing
     }
     
     func getState() -> status {
         return state
     }
     
-    func setState(st: status) {
+    func setStatus(_ st: status) {
         switch st {
-        case .Ready:
-            state = .Ready
-            self.listButton.setTitle(" ", forState: UIControlState.Normal)
+        case .ready:
+            state = .ready
+            self.listButton.setTitle(" ", for: UIControlState())
             self.listImage.alpha = 1
             self.ListTitle.alpha = 1
             self.backgroundColor = UIColor(white: 1, alpha: 1.0)
-            self.selectionStyle = .Default
-            self.progress.hidden = true
-        case .Download:
-            self.listButton.setTitle("Download", forState: UIControlState.Normal)
+            self.selectionStyle = .default
+            self.progress.isHidden = true
+        case .download:
+            self.listButton.setTitle("Download", for: UIControlState())
+            self.listButton.isUserInteractionEnabled = false
             self.listImage.alpha = 0.5
             self.ListTitle.alpha = 0.5
             self.backgroundColor = UIColor(white: 0.9, alpha: 1.0)
-            self.selectionStyle = .None
-            self.progress.hidden = true
-        case .Downloading:
-            self.listButton.setTitle("Downloading", forState: UIControlState.Normal)
+            self.selectionStyle = .none
+            self.progress.isHidden = true
+        case .downloading:
+            self.listButton.setTitle("Downloading", for: UIControlState())
             self.listImage.alpha = 0.5
             self.ListTitle.alpha = 0.5
             self.backgroundColor = UIColor(white: 0.9, alpha: 1.0)
-            self.selectionStyle = .None
-            self.progress.hidden = false
-        case .Playing:
-            self.listButton.setTitle("Now Playing", forState: UIControlState.Normal)
-            self.listButton.userInteractionEnabled = false
+            self.selectionStyle = .none
+            self.progress.setProgress(associatedStory()!.downloadStatus, animated: false)
+            self.progress.isHidden = false
+        case .playing:
+            self.listButton.setTitle("Now Playing", for: UIControlState())
+            self.listButton.isUserInteractionEnabled = false
             self.listImage.alpha = 1
             self.ListTitle.alpha = 1
             self.backgroundColor = UIColor(white: 1, alpha: 1.0)
-            self.selectionStyle = .Default
-            self.progress.hidden = true
-        default:
-            state = .None
+            self.selectionStyle = .default
+            self.progress.isHidden = true
         }
     }
     

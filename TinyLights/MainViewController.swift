@@ -14,11 +14,11 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable, Pla
     
     var storySession: AVAudioSession!
     var storyAudio: AVAudioPlayer! = nil
-    let path = NSBundle.mainBundle().pathForResource("jill1", ofType: "mp3")!
+    let path = Bundle.main.path(forResource: "jill0", ofType: "mp3")!
     let dimLevel: CGFloat = 0.5
     var dimmed = false
     let dimSpeed: Double = 0.5
-    let ffrwTime: NSTimeInterval = 10
+    let ffrwTime: TimeInterval = 10
     let playPos = 3
     var currentStory = Int()
     
@@ -29,27 +29,32 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable, Pla
     @IBOutlet weak var scrubber: UISlider!
     @IBOutlet weak var timer: UILabel!
     
-    func didFinishSelecting(songInList: Int) {
+    func didFinishSelecting(storyInList: Int) {
         
         do {
             storySession = AVAudioSession.sharedInstance()
             try storySession.setCategory(AVAudioSessionCategoryPlayback)
             try storySession.setActive(true)
-            storyAudio = try AVAudioPlayer(contentsOfURL: (stories.getNext(songInList)?.getMP3())!)
+            storyAudio = try AVAudioPlayer(contentsOf: (stories.getNext(storyInList)?.getMP3())!)
             storyAudio.delegate = self
             storyAudio.prepareToPlay()
-            currentStory = songInList
+            
         } catch {
             // couldn't load file :( - nothing for now
         }
         
-        stories.currentStory = songInList
+        
+        stories.getNext(currentStory)!.setStatus(.ready)
+        
+        currentStory = storyInList
+        stories.currentStory = storyInList
+        stories.getNext(currentStory)!.setStatus(.playing)
         
         
-        print("Tag is \(songInList) + \((stories.getNext(songInList)?.getMP3())!)")
+        print("Tag is \(storyInList) + \((stories.getNext(storyInList)?.getMP3())!)")
         
-        if playBtn.selected {
-            play("")
+        if playBtn.isSelected {
+            play("" as AnyObject)
         }
         checkTime()
         updateScrubber()
@@ -58,14 +63,14 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable, Pla
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        toolbar.layer.shadowColor = UIColor.blackColor().CGColor
+        toolbar.layer.shadowColor = UIColor.black.cgColor
         toolbar.layer.shadowOpacity = 0.6
         toolbar.layer.shadowRadius = 5
         toolbar.layer.shadowOffset = CGSize(width: 0, height: 5)
         toolbar.layer.masksToBounds = false
         
-        scrubber.setThumbImage(UIImage(named: "Scrubber"), forState: UIControlState.Normal)
-        scrubber.setThumbImage(UIImage(named: "scrubber.png"), forState: UIControlState.Highlighted)
+        scrubber.setThumbImage(UIImage(named: "Scrubber"), for: UIControlState())
+        scrubber.setThumbImage(UIImage(named: "scrubber.png"), for: UIControlState.highlighted)
         
         
         if let url = stories.getNext(0)!.mp3Path {
@@ -73,9 +78,10 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable, Pla
                 storySession = AVAudioSession.sharedInstance()
                 try storySession.setCategory(AVAudioSessionCategoryPlayback)
                 try storySession.setActive(true)
-                storyAudio = try AVAudioPlayer(contentsOfURL: url)
+                storyAudio = try AVAudioPlayer(contentsOf: url)
                 storyAudio.delegate = self
                 storyAudio.prepareToPlay()
+                stories.getNext(0)!.setStatus(.playing)
             } catch {
                 // couldn't load file :( - nothing for now
             }
@@ -83,16 +89,16 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable, Pla
             print("URL does not exist")
         }
         
-        let prefs = NSUserDefaults.standardUserDefaults()
+        let prefs = UserDefaults.standard
         var appDefaults = Dictionary<String, AnyObject>()
-        appDefaults["remember"] = true
-        NSUserDefaults.standardUserDefaults().registerDefaults(appDefaults)
-        NSUserDefaults.standardUserDefaults().synchronize()
+        appDefaults["remember"] = true as AnyObject?
+        UserDefaults.standard.register(defaults: appDefaults)
+        UserDefaults.standard.synchronize()
         
-        let rem = prefs.boolForKey("remember")
+        let rem = prefs.bool(forKey: "remember")
         if rem {
-            if let before = prefs.stringForKey("lastPos") {
-                storyAudio.currentTime = NSTimeInterval(before)!
+            if let before = prefs.string(forKey: "lastPos") {
+                storyAudio.currentTime = TimeInterval(before)!
             }
         }
         
@@ -100,7 +106,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable, Pla
 
     }
     
-    func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         //playBtn.selected = !playBtn.selected
         //performSegueWithIdentifier("next", sender: self)
         next(UIButton())
@@ -120,24 +126,24 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable, Pla
         timer.text = "-"+String(format: "%02d", min)+":"+String(format: "%02d", sec)
     }
     
-    @IBAction func play(sender: AnyObject) {
+    @IBAction func play(_ sender: AnyObject) {
         
-        print("is playing \(storyAudio.playing)")
+        print("is playing \(storyAudio.isPlaying)")
         
-        if storyAudio.playing {
+        if storyAudio.isPlaying {
             storyAudio.pause()
-            playBtn.selected = false
+            playBtn.isSelected = false
 
         } else {
             storyAudio.play()
             let displayLink = CADisplayLink(target: self, selector: (#selector(MainViewController.updateScrubber)))
-            displayLink.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSDefaultRunLoopMode)
-            playBtn.selected = true
+            displayLink.add(to: RunLoop.current, forMode: RunLoopMode.defaultRunLoopMode)
+            playBtn.isSelected = true
         }
     }
     
-    @IBAction func scrubControl(sender: UISlider) {
-        storyAudio.currentTime = NSTimeInterval(sender.value)*storyAudio.duration
+    @IBAction func scrubControl(_ sender: UISlider) {
+        storyAudio.currentTime = TimeInterval(sender.value)*storyAudio.duration
         checkTime()
     }
 
@@ -168,19 +174,19 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable, Pla
 //    }
     
 
-    @IBAction func ff(sender: AnyObject) {
+    @IBAction func ff(_ sender: AnyObject) {
         if storyAudio.currentTime + ffrwTime < storyAudio.duration {
             let newTime = storyAudio.currentTime + ffrwTime
             storyAudio.currentTime = newTime
         } else {
             storyAudio.currentTime = 0
             storyAudio.stop()
-            playBtn.selected = !playBtn.selected
+            playBtn.isSelected = !playBtn.isSelected
         }
         
     }
 
-    @IBAction func rw(sender: AnyObject) {
+    @IBAction func rw(_ sender: AnyObject) {
         if storyAudio.currentTime - ffrwTime > 0 {
             let newTime = storyAudio.currentTime - ffrwTime
             storyAudio.currentTime = newTime
@@ -189,51 +195,51 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable, Pla
         }
     }
     
-    @IBAction func previous(sender: UIButton) {
+    @IBAction func previous(_ sender: UIButton) {
         if let next = stories.getNext(currentStory-1) {
             if next.ready() {
-                didFinishSelecting(currentStory-1)
+                didFinishSelecting(storyInList: currentStory-1)
                 return
             }
         }
-        performSegueWithIdentifier("next", sender: self)
+        performSegue(withIdentifier: "next", sender: self)
     }
     
-    @IBAction func next(sender: UIButton) {
+    @IBAction func next(_ sender: UIButton) {
         
         if let next = stories.getNext(currentStory+1) {
             if next.ready() {
-                didFinishSelecting(currentStory+1)
+                didFinishSelecting(storyInList: currentStory+1)
                 return
             }
         }
-        performSegueWithIdentifier("next", sender: self)
+        performSegue(withIdentifier: "next", sender: self)
         storyAudio.stop()
-        playBtn.selected = false
+        playBtn.isSelected = false
     }
     
-    @IBAction func clear(segue: UIStoryboardSegue) {
-        dim(.Out, speed: dimSpeed)
+    @IBAction func clear(_ segue: UIStoryboardSegue) {
+        dim(.out, speed: dimSpeed)
         dimmed = false
     }
     
-    @IBAction func backToMain(segue: UIStoryboardSegue) {
+    @IBAction func backToMain(_ segue: UIStoryboardSegue) {
         if dimmed {
-            dim(.Out, speed: dimSpeed)
+            dim(.out, speed: dimSpeed)
             dimmed = false
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         print("Yay")
         
         
         if segue.identifier == "next" {
-            dim(.In, alpha: dimLevel, speed: dimSpeed)
+            dim(.in, alpha: dimLevel, speed: dimSpeed)
             dimmed = true
         } else if segue.identifier == "list" {
-            if let navVC = segue.destinationViewController as? UINavigationController {
+            if let navVC = segue.destination as? UINavigationController {
                 if let destVC = navVC.topViewController as? ListOfStories {
                     destVC.delegate = self
                 }

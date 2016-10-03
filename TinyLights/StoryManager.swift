@@ -16,14 +16,30 @@ class StoryManager {
     var currentStory = 0
     
     var stories = [Story]()
-    var allStories = [("Lost at Sea","jill1"), ("On a Treasure Hunt","jill2"), ("Fish and Chips","jill_v2"), ("Open Water","jill_v2"), ("Critter Fritter","jill_v2")]
+    var allStories = [("Lost at Sea","jill0"), ("On a Treasure Hunt","jill1"), ("Fish and Chips","jill2"), ("Open Water","jill3"), ("Critter Fritter","jill4")]
     
     init() {
         for story in allStories {
             let newStory = Story(name: story.0, mp3: story.1)
-            newStory.tryMP3()
+            _ = newStory.tryMP3()
+            newStory.index = stories.count
             stories.append(newStory)
         }
+    }
+    
+    func refresh() {
+        for story in stories {
+            _ = story.tryMP3()
+        }
+    }
+    
+    func getStoryByDownloadID(ID: Int) -> Story? {
+        for story in stories {
+            if story.downloadIndex == ID {
+                return story
+            }
+        }
+        return nil
     }
     
     func getPlayableStories() -> [Story] {
@@ -36,7 +52,7 @@ class StoryManager {
         return temp
     }
     
-    func setFile(index: Int, storyURL: NSURL) {
+    func setFile(_ index: Int, storyURL: URL) {
         if let updatedStory = getNext(index) {
             updatedStory.mp3Path = storyURL
             updatedStory.tryMP3()
@@ -53,7 +69,19 @@ class StoryManager {
         return stories.count
     }
     
-    func getNext(index: Int) -> Story? {
+    func getStoryIndex(story: Story) -> Int {
+        var index = 0
+        for st in stories {
+            if st.getName() == story.getName() {
+                return index
+            } else {
+                index += 1
+            }
+        }
+        return -1
+    }
+    
+    func getNext(_ index: Int) -> Story? {
         
         if index < stories.endIndex && index >= stories.startIndex {
             return stories[index]

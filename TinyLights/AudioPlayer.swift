@@ -28,9 +28,9 @@ class AudioPlayer {
         }
     }
     
-    func loadAudioOriginal(delegate: AVAudioPlayerDelegate, url: NSURL) {
+    func loadAudioOriginal(_ delegate: AVAudioPlayerDelegate, url: URL) {
         do {
-            storyAudio = try AVAudioPlayer(contentsOfURL: url)
+            storyAudio = try AVAudioPlayer(contentsOf: url)
             storyAudio.delegate = delegate
             //storyAudio = try AVAudioPlayer(contentsOfURL: (stories.getNext(4)?.getMP3())!)
             storyAudio.prepareToPlay()
@@ -39,9 +39,9 @@ class AudioPlayer {
         }
     }
     
-    func loadAudio(url: NSURL) {
+    func loadAudio(_ url: URL) {
         do {
-            storyAudio = try AVAudioPlayer(contentsOfURL: (StoryManager.sharedInstance.getNext(4)?.getMP3())!)
+            storyAudio = try AVAudioPlayer(contentsOf: (StoryManager.sharedInstance.getNext(4)?.getMP3())!)
         } catch {
             // handle errors
         }
