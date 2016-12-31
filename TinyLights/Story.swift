@@ -12,7 +12,7 @@ import UIKit
 class Story {
     
     enum status {
-        case ready, download, downloading, playing
+        case ready, download, downloading, playing, upcoming
     }
     
     enum storage {
@@ -26,18 +26,22 @@ class Story {
     var mp3Path: URL? = nil
     var mp3DataAvailable = false
     var storyIcon: UIImage = UIImage()
-    var mainImage: UIImage = UIImage()
+    var bgImage: UIImage = UIImage()
     var title: UIImage = UIImage()
     var starringTitle: UIImage = UIImage()
     var downloadIndex = -1
     var downloadStatus = Float()
     var storyURL: Foundation.URL
-    var index = -1
+    var index: Int
     
-    init(name: String, mp3: String) {
+    init(name: String, ind: Int) {
         storyName = name
-        mp3Name = mp3
-        storyURL = URL(string: "http://www.fablemore.com/assets/\(mp3Name).mp3")!
+        index = ind
+        mp3Name = "jill\(index)"
+        bgImage = UIImage(named: "bigChapter\(index)")!
+        storyIcon = UIImage(named: "iconChapter\(index)")!
+        storyURL = URL(string: "http://www.fablemore.com/assets/jill\(index).mp3")!
+        // Remove in v3
     }
     
     func setDI(_ index: Int) {
@@ -48,19 +52,16 @@ class Story {
         return downloadIndex
     }
     
-    func addImageAssets(_ topImage: UIImage, midImage: UIImage, botImage: UIImage ) {
-        //storyName = name
-        //storyIcon = icon
-        mainImage = topImage
-        title = topImage
-        starringTitle = botImage
-    }
-    
     func tryMP3() -> Bool {
         
         let show = true
         
-        //print("Mp3Path is \(String(mp3Path))")
+        if index > 3 {
+            readiness = .upcoming
+            return true
+        }
+        
+        //print("Mp3Path is \(String(describing: mp3Path))")
         if let mp3Available = Bundle.main.path(forResource: mp3Name, ofType: "mp3") {
             mp3Path = URL(fileURLWithPath: mp3Available)
             mp3DataAvailable = true
@@ -97,7 +98,7 @@ class Story {
             location = .somewhere
             if show { print("For story \(storyName), mp3 data is available somewhere") }
             downloadStatus = 1
-            if show { print(mp3Path) }
+            if show { print(mp3Path!) }
             return true
         } else {
             if show { print("For story \(storyName), mp3 data is NOT available anywhere") }
@@ -111,11 +112,19 @@ class Story {
     
     func deleteData() {
         mp3Path = nil
-        tryMP3()
+        _ = tryMP3()
     }
     
     func getLocation() -> Story.storage {
         return location
+    }
+    
+    func getBg() -> UIImage {
+        return bgImage
+    }
+    
+    func getIcon() -> UIImage {
+        return storyIcon
     }
     
     func setLocation(_ loc: Story.storage) {
@@ -129,7 +138,7 @@ class Story {
     func setStatus(_ st: Story.status) {
         readiness = st
         if readiness == .ready {
-            tryMP3()
+            _ = tryMP3()
         }
     }
     
@@ -139,18 +148,6 @@ class Story {
     
     func getMP3() -> URL {
         return mp3Path!
-    }
-    
-    func getImages() -> (UIImage, UIImage, UIImage) {
-        return (title, mainImage, starringTitle)
-    }
-    
-    func setIcon(_ icon: UIImage) {
-        storyIcon = icon
-    }
-    
-    func getIcon() -> UIImage {
-        return storyIcon
     }
     
     func getName() -> String {

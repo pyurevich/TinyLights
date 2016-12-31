@@ -9,7 +9,7 @@
 import Foundation
 
 protocol DownloadManagerDelegate {
-    func didUpdateScrubber(storyID: Int, progress: Double)
+    func didUpdate(storyID: Int, progress: Double)
     func didFinishDownload(storyID: Int)
 }
 
@@ -49,6 +49,7 @@ class DownloadManager: NSObject, URLSessionTaskDelegate, URLSessionDownloadDeleg
     
     func addDownload(_ story: Story) -> DownloadOperation {
         let operation = DownloadOperation(session: session, story: story)
+        print("Operation sees this task - \(operation.task.taskIdentifier)")
         operations[operation.task.taskIdentifier] = operation
         queue.addOperation(operation)
         numOfOperations += 1
@@ -65,6 +66,7 @@ class DownloadManager: NSObject, URLSessionTaskDelegate, URLSessionDownloadDeleg
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
         operations[downloadTask.taskIdentifier]?.URLSession(session, downloadTask: downloadTask, didFinishDownloadingToURL: location)
+        print("Taskidentifier - \(String(describing: downloadTask.taskIdentifier))")
         let storyIndex =  operations[downloadTask.taskIdentifier]!.story.index
         delegate!.didFinishDownload(storyID: storyIndex)
         numOfOperations -= 1
@@ -72,7 +74,7 @@ class DownloadManager: NSObject, URLSessionTaskDelegate, URLSessionDownloadDeleg
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
         operations[downloadTask.taskIdentifier]?.URLSession(session, downloadTask: downloadTask, didWriteData: bytesWritten, totalBytesWritten: totalBytesWritten, totalBytesExpectedToWrite: totalBytesExpectedToWrite)
-        delegate!.didUpdateScrubber(storyID: operations[downloadTask.taskIdentifier]!.story.index, progress: Double(totalBytesWritten) / Double(totalBytesExpectedToWrite))
+        delegate!.didUpdate(storyID: operations[downloadTask.taskIdentifier]!.story.index, progress: Double(totalBytesWritten) / Double(totalBytesExpectedToWrite))
     }
     
     // MARK: NSURLSessionTaskDelegate methods

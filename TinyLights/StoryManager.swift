@@ -16,11 +16,11 @@ class StoryManager {
     var currentStory = 0
     
     var stories = [Story]()
-    var allStories = [("Lost at Sea","jill0"), ("On a Treasure Hunt","jill1"), ("Fish and Chips","jill2"), ("Open Water","jill3"), ("Critter Fritter","jill4")]
+    var allStories = [("Lost at Sea", 1), ("On a Treasure Hunt", 2), ("X Marks the Spot", 3), ("The Brave Rescue", 4), ("Beyond the Sea", 5)]
     
     init() {
         for story in allStories {
-            let newStory = Story(name: story.0, mp3: story.1)
+            let newStory = Story(name: story.0, ind: story.1)
             _ = newStory.tryMP3()
             newStory.index = stories.count
             stories.append(newStory)
@@ -55,7 +55,7 @@ class StoryManager {
     func setFile(_ index: Int, storyURL: URL) {
         if let updatedStory = getNext(index) {
             updatedStory.mp3Path = storyURL
-            updatedStory.tryMP3()
+            _ = updatedStory.tryMP3()
         } else {
             print("Story with index \(index) does not exist!")
         }

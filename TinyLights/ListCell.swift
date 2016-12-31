@@ -26,7 +26,7 @@ class ListCell : UITableViewCell {
     }
     
     enum status {
-        case ready, download, downloading, playing
+        case ready, download, downloading, playing, upcoming
     }
     
     func getState() -> status {
@@ -48,14 +48,14 @@ class ListCell : UITableViewCell {
             self.listButton.isUserInteractionEnabled = false
             self.listImage.alpha = 0.5
             self.ListTitle.alpha = 0.5
-            self.backgroundColor = UIColor(white: 0.9, alpha: 1.0)
+            self.backgroundColor = UIColor(white: 0.95, alpha: 1.0)
             self.selectionStyle = .none
             self.progress.isHidden = true
         case .downloading:
             self.listButton.setTitle("Downloading", for: UIControlState())
             self.listImage.alpha = 0.5
             self.ListTitle.alpha = 0.5
-            self.backgroundColor = UIColor(white: 0.9, alpha: 1.0)
+            self.backgroundColor = UIColor(white: 0.95, alpha: 1.0)
             self.selectionStyle = .none
             self.progress.setProgress(associatedStory()!.downloadStatus, animated: false)
             self.progress.isHidden = false
@@ -66,6 +66,14 @@ class ListCell : UITableViewCell {
             self.ListTitle.alpha = 1
             self.backgroundColor = UIColor(white: 1, alpha: 1.0)
             self.selectionStyle = .default
+            self.progress.isHidden = true
+        case .upcoming:
+            self.listButton.setTitle("Coming soon!", for: UIControlState())
+            self.listButton.isUserInteractionEnabled = false
+            self.listImage.alpha = 0.5
+            self.ListTitle.alpha = 0.5
+            self.backgroundColor = UIColor(white: 0.9, alpha: 1.0)
+            self.selectionStyle = .none
             self.progress.isHidden = true
         }
     }

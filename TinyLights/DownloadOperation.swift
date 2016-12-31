@@ -16,6 +16,7 @@ class DownloadOperation : Operation {
     init(session: Foundation.URLSession, story: Story) {
         
         task = session.downloadTask(with: story.storyURL)
+        print("This is the true task id\(task.taskIdentifier)")
         print("Downloading \(story.storyURL)")
         self.story = story
         super.init()
@@ -59,7 +60,7 @@ class DownloadOperation : Operation {
     func URLSession(_ session: Foundation.URLSession, task: URLSessionTask, didCompleteWithError error: NSError?) {
         //completeOperation()
         if error != nil {
-            print(error)
+            print(error!)
         }
     }
     

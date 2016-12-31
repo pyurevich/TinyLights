@@ -12,9 +12,25 @@ import AVFoundation
 
 class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable, PlaySongDelegate {
     
+    @IBAction func leftSwipe(_ sender: UISwipeGestureRecognizer) {
+        
+        previous(UIButton())
+        print(sender.direction)
+        print("Swiped!")
+    }
+    
+    @IBAction func RightSwipe(_ sender: UISwipeGestureRecognizer) {
+        
+        next(UIButton())
+        print(sender.direction)
+        print("Swiped!")
+    }
+    
+    let stories = StoryManager.sharedInstance
+    
     var storySession: AVAudioSession!
     var storyAudio: AVAudioPlayer! = nil
-    let path = Bundle.main.path(forResource: "jill0", ofType: "mp3")!
+    //var path: String
     let dimLevel: CGFloat = 0.5
     var dimmed = false
     let dimSpeed: Double = 0.5
@@ -22,55 +38,29 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable, Pla
     let playPos = 3
     var currentStory = Int()
     
-    let stories = StoryManager.sharedInstance
-    
+    @IBOutlet weak var storyImage: UIImageView!
     @IBOutlet weak var toolbar: UIView!
     @IBOutlet weak var playBtn: UIButton!
     @IBOutlet weak var scrubber: UISlider!
     @IBOutlet weak var timer: UILabel!
     
-    func didFinishSelecting(storyInList: Int) {
-        
-        do {
-            storySession = AVAudioSession.sharedInstance()
-            try storySession.setCategory(AVAudioSessionCategoryPlayback)
-            try storySession.setActive(true)
-            storyAudio = try AVAudioPlayer(contentsOf: (stories.getNext(storyInList)?.getMP3())!)
-            storyAudio.delegate = self
-            storyAudio.prepareToPlay()
-            
-        } catch {
-            // couldn't load file :( - nothing for now
-        }
-        
-        
-        stories.getNext(currentStory)!.setStatus(.ready)
-        
-        currentStory = storyInList
-        stories.currentStory = storyInList
-        stories.getNext(currentStory)!.setStatus(.playing)
-        
-        
-        print("Tag is \(storyInList) + \((stories.getNext(storyInList)?.getMP3())!)")
-        
-        if playBtn.isSelected {
-            play("" as AnyObject)
-        }
-        checkTime()
-        updateScrubber()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //path = String(describing: stories.getNext(0)?.getMP3())
+        
         toolbar.layer.shadowColor = UIColor.black.cgColor
-        toolbar.layer.shadowOpacity = 0.6
+        toolbar.layer.shadowOpacity = 0.4
         toolbar.layer.shadowRadius = 5
-        toolbar.layer.shadowOffset = CGSize(width: 0, height: 5)
+        toolbar.layer.shadowOffset = CGSize(width: 0, height: 0)
         toolbar.layer.masksToBounds = false
         
         scrubber.setThumbImage(UIImage(named: "Scrubber"), for: UIControlState())
         scrubber.setThumbImage(UIImage(named: "scrubber.png"), for: UIControlState.highlighted)
+        scrubber.layer.shadowColor = UIColor.black.cgColor
+        scrubber.layer.shadowOpacity = 0.4
+        scrubber.layer.shadowRadius = 2
+        scrubber.layer.shadowOffset = CGSize(width: 0, height: 0)
         
         
         if let url = stories.getNext(0)!.mp3Path {
@@ -103,7 +93,49 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable, Pla
         }
         
         updateScrubber()
+        
+    }
 
+    
+    func didFinishSelecting(storyInList: Int) {
+        
+        do {
+            storySession = AVAudioSession.sharedInstance()
+            try storySession.setCategory(AVAudioSessionCategoryPlayback)
+            try storySession.setActive(true)
+            storyAudio = try AVAudioPlayer(contentsOf: (stories.getNext(storyInList)?.getMP3())!)
+            storyAudio.delegate = self
+            //storyImage.image = stories.getNext(storyInList)?.bgImage
+        
+    
+            UIView.transition(with: self.storyImage,
+                              duration: 0.3,
+                              options: .transitionCrossDissolve,
+                              animations: {
+                                self.storyImage.image = self.stories.getNext(storyInList)?.bgImage
+            },
+                              completion: nil)
+            storyAudio.prepareToPlay()
+            
+        } catch {
+            // couldn't load file :( - nothing for now
+        }
+        
+        
+        stories.getNext(currentStory)!.setStatus(.ready)
+        
+        currentStory = storyInList
+        stories.currentStory = storyInList
+        stories.getNext(currentStory)!.setStatus(.playing)
+        
+        
+        print("Tag is \(storyInList) + \((stories.getNext(storyInList)?.getMP3())!)")
+        
+        if playBtn.isSelected {
+            play("" as AnyObject)
+        }
+        checkTime()
+        updateScrubber()
     }
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
@@ -178,6 +210,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable, Pla
         if storyAudio.currentTime + ffrwTime < storyAudio.duration {
             let newTime = storyAudio.currentTime + ffrwTime
             storyAudio.currentTime = newTime
+            updateScrubber()
         } else {
             storyAudio.currentTime = 0
             storyAudio.stop()
@@ -190,9 +223,11 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable, Pla
         if storyAudio.currentTime - ffrwTime > 0 {
             let newTime = storyAudio.currentTime - ffrwTime
             storyAudio.currentTime = newTime
+            updateScrubber()
         } else {
             storyAudio.currentTime = 0
         }
+       
     }
     
     @IBAction func previous(_ sender: UIButton) {
@@ -202,7 +237,10 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable, Pla
                 return
             }
         }
-        performSegue(withIdentifier: "next", sender: self)
+        //performSegue(withIdentifier: "next", sender: self)
+        storyAudio.currentTime = 0
+        updateScrubber()
+        shake(self.view)
     }
     
     @IBAction func next(_ sender: UIButton) {
@@ -213,14 +251,15 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable, Pla
                 return
             }
         }
-        performSegue(withIdentifier: "next", sender: self)
         storyAudio.stop()
         playBtn.isSelected = false
-    }
-    
-    @IBAction func clear(_ segue: UIStoryboardSegue) {
-        dim(.out, speed: dimSpeed)
-        dimmed = false
+        print(currentStory)
+        if currentStory < 4 {
+            performSegue(withIdentifier: "next", sender: self)
+        } else {
+            shake(self.view)
+        }
+        
     }
     
     @IBAction func backToMain(_ segue: UIStoryboardSegue) {
@@ -238,6 +277,9 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable, Pla
         if segue.identifier == "next" {
             dim(.in, alpha: dimLevel, speed: dimSpeed)
             dimmed = true
+            if let navVC = segue.destination as? PopoverViewController {
+                navVC.nextStory = currentStory+2
+            }
         } else if segue.identifier == "list" {
             if let navVC = segue.destination as? UINavigationController {
                 if let destVC = navVC.topViewController as? ListOfStories {
@@ -245,6 +287,19 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable, Pla
                 }
             }
         }
+    }
+    
+    func shake(_ view: UIView) {
+        let anim = CAKeyframeAnimation( keyPath:"transform" )
+        anim.values = [
+            NSValue( caTransform3D:CATransform3DMakeTranslation(-5, 0, 0 ) ),
+            NSValue( caTransform3D:CATransform3DMakeTranslation( 5, 0, 0 ) )
+        ]
+        anim.autoreverses = true
+        anim.repeatCount = 2
+        anim.duration = 6/100
+        
+        view.layer.add( anim, forKey:nil )
     }
 }
 

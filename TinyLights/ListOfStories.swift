@@ -29,11 +29,17 @@ class ListOfStories: UITableViewController, AVAudioPlayerDelegate, DownloadManag
     override func viewDidLoad() {
         super.viewDidLoad()
         downloads.delegate = self
+        if delegate == nil {
+            print("Delegate is nil!")
+            print("Assigning delegate to: \(String(describing: (parent as! UINavigationController).parent))")
+            delegate = (parent as! UINavigationController).parent as! PlaySongDelegate?
+        }
     }
     
     // MARK: Download Manager Delegates
     
-    func didUpdateScrubber(storyID: Int, progress: Double) {
+    func didUpdate(storyID: Int, progress: Double) {
+        print(storyID, progress)
         DispatchQueue.main.async {
             let storyIndex = storyID
             let cell = self.tableView.cellForRow(at: NSIndexPath(row: storyIndex, section: 0) as IndexPath) as! ListCell
@@ -67,6 +73,8 @@ class ListOfStories: UITableViewController, AVAudioPlayerDelegate, DownloadManag
         
         if let storyExists = cell.associatedStory() {
             cell.ListTitle.text = storyExists.getName()
+            cell.listImage.image = storyExists.getIcon()
+            cell.listImage.layer.cornerRadius = 10
             switch storyExists.getStatus() {
             case .ready:
                 cell.setStatus(.ready)
@@ -76,6 +84,9 @@ class ListOfStories: UITableViewController, AVAudioPlayerDelegate, DownloadManag
                 cell.setStatus(.downloading)
             case .playing:
                 cell.setStatus(.playing)
+            case .upcoming:
+                print("Upcoming!")
+                cell.setStatus(.upcoming)
             }
         } else {
             print("Story has not been assigned!")
@@ -103,15 +114,21 @@ class ListOfStories: UITableViewController, AVAudioPlayerDelegate, DownloadManag
         if let storyExists = cell.associatedStory() {
             switch storyExists.getStatus() {
             case .ready:
+                if delegate == nil {
+                    self.dismiss(animated: true, completion: {})
+                }
                 delegate!.didFinishSelecting(storyInList: indexPath.row)
-                self.dismiss(animated: true, completion: {})
+                //self.dismiss(animated: true, completion: {})
+                performSegue(withIdentifier: "back", sender: self)
             case .download:
                 cell.setStatus(.downloading)
                 storyExists.setStatus(.downloading)
                 startDownload(storyExists)
             case .downloading: break
+            case .upcoming: break
             case .playing:
-                self.dismiss(animated: true, completion: {})
+                //self.dismiss(animated: true, completion: {})
+                performSegue(withIdentifier: "back", sender: self)
             }
         } else {
             print("Story has not been assigned!")
@@ -121,7 +138,8 @@ class ListOfStories: UITableViewController, AVAudioPlayerDelegate, DownloadManag
 
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if stories.getNext((indexPath as NSIndexPath).row)!.getStatus() == .ready {
+        let storyToEditStatus = stories.getNext((indexPath as NSIndexPath).row)!.getStatus()
+        if storyToEditStatus == .ready || storyToEditStatus == .playing {
             return true
         } else {
             return false
@@ -145,11 +163,20 @@ class ListOfStories: UITableViewController, AVAudioPlayerDelegate, DownloadManag
                 } catch {
                     //handle errors
                 }
+                if storyToDelete.getStatus() == .playing {
+                    (tableView.cellForRow(at: NSIndexPath(row: 0, section: 0) as IndexPath) as! ListCell).setStatus(.playing)
+                    (tableView.cellForRow(at: NSIndexPath(row: 0, section: 0) as IndexPath) as! ListCell).associatedStory()?.setStatus(.playing)
+                    delegate!.didFinishSelecting(storyInList: 0)
+                }
+                
                 storyToDelete.mp3DataAvailable = false
                 cellToDelete.setStatus(.download)
                 storyToDelete.deleteData()
                 storyToDelete.setStatus(.download)
+                
+                
                 tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.fade)
+                
                 
             } else if storyToDelete.getLocation() == .bundle {
                 tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.fade)
@@ -159,6 +186,7 @@ class ListOfStories: UITableViewController, AVAudioPlayerDelegate, DownloadManag
             }
         }
     }
+    
     
     func shake(_ view: UIView) {
         let anim = CAKeyframeAnimation( keyPath:"transform" )
