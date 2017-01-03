@@ -1,0 +1,37 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "F722F467BFA9A1B19BA6238FD4A986BF1BAF7C8F+++3FA9A4B",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "F722F467BFA9A1B19BA6238FD4A986BF1BAF7C8F+++1EB6289" : 0,
+    "F722F467BFA9A1B19BA6238FD4A986BF1BAF7C8F+++3FA9A4B" : 0,
+    "F722F467BFA9A1B19BA6238FD4A986BF1BAF7C8F+++ED9448E" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "DE6618FB-9C03-4B26-AD87-B65F27096426",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "F722F467BFA9A1B19BA6238FD4A986BF1BAF7C8F+++1EB6289" : "Projects\/TinyLights\/",
+    "F722F467BFA9A1B19BA6238FD4A986BF1BAF7C8F+++3FA9A4B" : "TinyLights\/",
+    "F722F467BFA9A1B19BA6238FD4A986BF1BAF7C8F+++ED9448E" : "Projects\/TinyLights\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Jill the Jelly",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Jill the Jelly.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/pyurevich\/TinyLights",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F722F467BFA9A1B19BA6238FD4A986BF1BAF7C8F+++1EB6289"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/pyurevich\/TinyLights",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F722F467BFA9A1B19BA6238FD4A986BF1BAF7C8F+++3FA9A4B"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/pyurevich\/TinyLights.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F722F467BFA9A1B19BA6238FD4A986BF1BAF7C8F+++ED9448E"
+    }
+  ]
+}
