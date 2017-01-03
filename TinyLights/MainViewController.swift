@@ -62,6 +62,11 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable, Pla
         scrubber.layer.shadowRadius = 2
         scrubber.layer.shadowOffset = CGSize(width: 0, height: 0)
         
+        timer.layer.shadowColor = UIColor.black.cgColor
+        timer.layer.shadowOpacity = 0.4
+        timer.layer.shadowRadius = 2
+        timer.layer.shadowOffset = CGSize(width: 0, height: 0)
+        
         
         if let url = stories.getNext(0)!.mp3Path {
             do {
