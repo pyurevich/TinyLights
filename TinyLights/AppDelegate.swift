@@ -58,9 +58,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //let rem = prefs.boolForKey("remember")
         let viewCtrl = self.window?.rootViewController as! MainViewController
         let current = viewCtrl.storyAudio.currentTime
+        let currentStory = viewCtrl.currentStory
         //print(rem)
         //if rem {
         prefs.setValue(current, forKey: "lastPos")
+        prefs.set(currentStory, forKey: "lastStory")
         //print("Saved!")
         //} else {
         //    prefs.removeObjectForKey("lasPos")

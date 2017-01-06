@@ -302,10 +302,10 @@
                                         </accessibility>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LoG-ZU-3bb">
-                                        <rect key="frame" x="19" y="321" width="217" height="44"/>
+                                        <rect key="frame" x="39.5" y="330" width="175" height="35"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="Bq9-zs-5dt"/>
-                                            <constraint firstAttribute="width" constant="217" id="UL2-KB-uWk"/>
+                                            <constraint firstAttribute="height" constant="35" id="Bq9-zs-5dt"/>
+                                            <constraint firstAttribute="width" constant="175" id="UL2-KB-uWk"/>
                                         </constraints>
                                         <state key="normal" image="Download!">
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

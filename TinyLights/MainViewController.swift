@@ -68,21 +68,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable, Pla
         timer.layer.shadowOffset = CGSize(width: 0, height: 0)
         
         
-        if let url = stories.getNext(0)!.mp3Path {
-            do {
-                storySession = AVAudioSession.sharedInstance()
-                try storySession.setCategory(AVAudioSessionCategoryPlayback)
-                try storySession.setActive(true)
-                storyAudio = try AVAudioPlayer(contentsOf: url)
-                storyAudio.delegate = self
-                storyAudio.prepareToPlay()
-                stories.getNext(0)!.setStatus(.playing)
-            } catch {
-                // couldn't load file :( - nothing for now
-            }
-        } else {
-            print("URL does not exist")
-        }
+
         
         let prefs = UserDefaults.standard
         var appDefaults = Dictionary<String, AnyObject>()
@@ -90,10 +76,53 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable, Pla
         UserDefaults.standard.register(defaults: appDefaults)
         UserDefaults.standard.synchronize()
         
+        var lastPlayedStory = 0
+        
         let rem = prefs.bool(forKey: "remember")
         if rem {
-            if let before = prefs.string(forKey: "lastPos") {
-                storyAudio.currentTime = TimeInterval(before)!
+            
+            
+
+            lastPlayedStory = prefs.integer(forKey: "lastStory")
+            print(lastPlayedStory)
+            
+            if stories.getNext(lastPlayedStory)!.mp3Path != nil {
+                didFinishSelecting(storyInList: lastPlayedStory)
+            } else {
+                didFinishSelecting(storyInList: 0)
+                updateScrubber()
+                return
+                
+            }
+            
+            
+            if let beforePos = prefs.string(forKey: "lastPos") {
+                
+                if (Double(beforePos)! - 5) > 0 {
+                   storyAudio.currentTime = TimeInterval(Double(beforePos)!-5)
+                } else {
+                    storyAudio.currentTime = TimeInterval(Double(beforePos)!)
+                }
+            }
+        } else {
+        
+            if stories.getNext(lastPlayedStory)!.mp3Path != nil {
+                
+                didFinishSelecting(storyInList: lastPlayedStory)
+                
+    //            do {
+    //                storySession = AVAudioSession.sharedInstance()
+    //                try storySession.setCategory(AVAudioSessionCategoryPlayback)
+    //                try storySession.setActive(true)
+    //                storyAudio = try AVAudioPlayer(contentsOf: url)
+    //                storyAudio.delegate = self
+    //                storyAudio.prepareToPlay()
+    //                stories.getNext(lastPlayedStory)!.setStatus(.playing)
+    //            } catch {
+    //                // couldn't load file :( - nothing for now
+    //            }
+            } else {
+                print("URL does not exist")
             }
         }
         
