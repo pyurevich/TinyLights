@@ -1,7 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Main View Controller-->
@@ -26,13 +32,13 @@
                             </imageView>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="zzp-1n-kjN">
                                 <rect key="frame" x="14" y="562" width="263" height="31"/>
-                                <color key="tintColor" red="0.28627450980000002" green="0.69411764710000001" blue="0.72156862749999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="0.23877826333045959" green="0.63833451271057129" blue="0.66402554512023926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="zpI-25-awa"/>
                                 </constraints>
-                                <color key="minimumTrackTintColor" red="0.28627450980392155" green="0.69411764705882351" blue="0.72156862745098038" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="maximumTrackTintColor" red="1" green="0.97472666072704195" blue="0.96932135617272375" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="thumbTintColor" red="0.89803921568627454" green="0.36078431372549019" blue="0.35294117647058826" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="minimumTrackTintColor" red="0.23877826333045959" green="0.63833451271057129" blue="0.66402554512023926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="maximumTrackTintColor" red="0.99922800064086914" green="0.96774828433990479" blue="0.96148508787155151" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="thumbTintColor" red="0.86268210411071777" green="0.2682834267616272" blue="0.28346544504165649" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="scrubControl:" destination="BYZ-38-t0r" eventType="valueChanged" id="9Da-S3-KfM"/>
                                 </connections>
@@ -43,7 +49,7 @@
                                     <constraint firstAttribute="width" constant="70" id="466-Vx-91A"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" red="1" green="0.99997437000274658" blue="0.99999129772186279" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sqp-3r-P9C">
@@ -93,7 +99,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.28627450980000002" green="0.69411764710000001" blue="0.72156862749999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.23877826333045959" green="0.63833451271057129" blue="0.66402554512023926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="wbC-Lb-uar" secondAttribute="bottom" constant="6" id="1MY-Cg-CTE"/>
                                     <constraint firstItem="wbC-Lb-uar" firstAttribute="top" secondItem="Sqp-3r-P9C" secondAttribute="top" constant="6" id="2h5-yw-A9d"/>
@@ -135,7 +141,7 @@
                                     <constraint firstAttribute="height" constant="45" id="l5I-Wf-pVD"/>
                                 </constraints>
                                 <state key="normal" title="List" image="listBtn">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" red="1" green="0.99997437000274658" blue="0.99999129772186279" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <state key="highlighted" image="listBtn_dark"/>
                                 <connections>
@@ -143,7 +149,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="1" green="0.99997437000274658" blue="0.99999129772186279" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="zzp-1n-kjN" firstAttribute="centerY" secondItem="jUW-Qf-JNK" secondAttribute="centerY" id="BIy-Nu-YGO"/>
                             <constraint firstAttribute="trailing" secondItem="jUW-Qf-JNK" secondAttribute="trailing" constant="20" id="Ch8-1I-FfY"/>
@@ -193,7 +199,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="H8l-5y-91p">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="1" green="0.99997437000274658" blue="0.99999129772186279" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="StoryEntry" rowHeight="80" id="jYS-3n-9bY" customClass="ListCell" customModule="Jill_the_Jelly" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="80"/>
@@ -206,7 +212,7 @@
                                             <rect key="frame" x="314" y="8" width="43" height="63.5"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                             <state key="normal" title="Button">
-                                                <color key="titleColor" red="0.26274509800000001" green="0.63529411759999999" blue="0.66274509800000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleColor" red="0.26274509800000001" green="0.63529411759999999" blue="0.66274509800000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
                                         </button>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bigChapter5" translatesAutoresizingMaskIntoConstraints="NO" id="8bV-3G-1md">
@@ -223,7 +229,7 @@
                                         </label>
                                         <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="F0Q-J1-hyN">
                                             <rect key="frame" x="96" y="69.5" width="261" height="2"/>
-                                            <color key="progressTintColor" red="0.28627450980000002" green="0.69411764710000001" blue="0.72156862749999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="progressTintColor" red="0.23877826333045959" green="0.63833451271057129" blue="0.66402554512023926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </progressView>
                                     </subviews>
                                     <constraints>
@@ -295,10 +301,26 @@
                                             <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
                                         </accessibility>
                                     </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LoG-ZU-3bb">
+                                        <rect key="frame" x="19" y="321" width="217" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="Bq9-zs-5dt"/>
+                                            <constraint firstAttribute="width" constant="217" id="UL2-KB-uWk"/>
+                                        </constraints>
+                                        <state key="normal" image="Download!">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <state key="highlighted" image="Download!Now"/>
+                                        <connections>
+                                            <action selector="proceedToDownload:" destination="92z-85-UXR" eventType="touchUpInside" id="wVg-gA-RoH"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.8980392157" green="0.36078431370000003" blue="0.35294117650000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.86268210411071777" green="0.2682834267616272" blue="0.28346544504165649" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="LoG-ZU-3bb" firstAttribute="centerX" secondItem="LUW-9b-KYx" secondAttribute="centerX" id="9NE-56-qZB"/>
                                     <constraint firstAttribute="width" constant="254" id="RTH-7y-NRQ"/>
+                                    <constraint firstItem="LoG-ZU-3bb" firstAttribute="bottom" secondItem="LUW-9b-KYx" secondAttribute="bottom" constant="-15" id="U3G-CK-WcI"/>
                                     <constraint firstAttribute="height" constant="380" id="qLB-Nd-ful"/>
                                 </constraints>
                                 <connections>
@@ -317,15 +339,6 @@
                                     <segue destination="gBJ-dh-162" kind="unwind" unwindAction="backToMain:" id="5JL-ut-9dT"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LoG-ZU-3bb">
-                                <rect key="frame" x="60" y="484" width="254" height="30"/>
-                                <state key="normal" title="Buttfffon">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="proceedToDownload:" destination="92z-85-UXR" eventType="touchUpInside" id="wVg-gA-RoH"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
@@ -333,11 +346,7 @@
                             <constraint firstItem="LUW-9b-KYx" firstAttribute="centerY" secondItem="ENY-uL-DQX" secondAttribute="centerY" id="25F-jJ-zMk"/>
                             <constraint firstItem="HBm-nI-Kl0" firstAttribute="leading" secondItem="LUW-9b-KYx" secondAttribute="trailing" constant="-25" id="6yU-oK-eQo"/>
                             <constraint firstItem="LUW-9b-KYx" firstAttribute="top" secondItem="HBm-nI-Kl0" secondAttribute="bottom" constant="-22" id="HKi-oY-CSI"/>
-                            <constraint firstItem="LoG-ZU-3bb" firstAttribute="leading" secondItem="ENY-uL-DQX" secondAttribute="leadingMargin" constant="44" id="HYS-Ru-d6T"/>
                             <constraint firstItem="LUW-9b-KYx" firstAttribute="centerX" secondItem="ENY-uL-DQX" secondAttribute="centerX" id="K2k-dV-2h0"/>
-                            <constraint firstItem="LoG-ZU-3bb" firstAttribute="bottom" secondItem="LUW-9b-KYx" secondAttribute="bottom" constant="-9" id="PXb-FC-fQf"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="LoG-ZU-3bb" secondAttribute="trailing" constant="45" id="nsm-bK-6OR"/>
-                            <constraint firstItem="LoG-ZU-3bb" firstAttribute="centerX" secondItem="ENY-uL-DQX" secondAttribute="centerX" id="pAR-GJ-QWU"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="DMz-zS-00Z" appends="YES" id="kLG-u6-Djz"/>
@@ -363,7 +372,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1046" y="333"/>
+            <point key="canvasLocation" x="1045.5999999999999" y="332.38380809595208"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="KAl-d1-bmN">
@@ -385,6 +394,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Download!" width="265" height="55"/>
+        <image name="Download!Now" width="265" height="55"/>
         <image name="FF" width="50" height="50"/>
         <image name="II" width="59" height="59"/>
         <image name="Play" width="59" height="59"/>

@@ -28,13 +28,14 @@ class PopoverViewController: UIViewController {
         
         imageView.image = UIImage(named: "bigChapter\(nextStory)")
         if nextStory > 3 {
-            print("Changing for more!")
+            //print("Changing for more!")
+            let comingSoonImage = UIImage(named: "ComingSoon")
             messageLabel.isUserInteractionEnabled = false
-            messageLabel.setTitle("Coming soon!", for: .normal)
+            messageLabel.setImage(comingSoonImage, for: .normal)
         } else {
-            print("Changing for less!")
-            messageLabel.isUserInteractionEnabled = true
-            messageLabel.setTitle("Download next chapter here!", for: .normal)
+            //print("Changing for less!")
+            //messageLabel.isUserInteractionEnabled = true
+            //messageLabel.setTitle("Download next chapter here!", for: .normal)
         }
         imageView.layer.cornerRadius = 10
         popupView.layer.cornerRadius = 10
