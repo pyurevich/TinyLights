@@ -68,7 +68,7 @@ class ListOfStories: UITableViewController, AVAudioPlayerDelegate, DownloadManag
         
         let cell = (tableView.dequeueReusableCell(withIdentifier: "StoryEntry")! as! ListCell)
         
-        cell.listButton.tag = indexPath.row
+        cell.ActionImage.tag = indexPath.row
         cell.cellIndex = indexPath.row
         
         if let storyExists = cell.associatedStory() {

@@ -9,8 +9,9 @@
 import UIKit
 import Foundation
 import AVFoundation
+import MediaPlayer
 
-class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable, PlaySongDelegate {
+class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable, PlaySongDelegate{
     
     @IBAction func leftSwipe(_ sender: UISwipeGestureRecognizer) {
         
@@ -46,6 +47,15 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable, Pla
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // UIApplication.shared.beginReceivingRemoteControlEvents()
+        
+      
+        
+        
+        //let commandCenter = MPRemoteCommandCenter.sharedCommandCenter()
+        //commandCenter.nextTrackCommand.enabled = true
+        //commandCenter.nextTrackCommand.addTarget(self, action: "nextTrackCommandSelector")
         
         //path = String(describing: stories.getNext(0)?.getMP3())
         
@@ -125,6 +135,15 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate, Dimmable, Pla
                 print("URL does not exist")
             }
         }
+        
+        
+        let commandCenter = MPRemoteCommandCenter.shared()
+        commandCenter.playCommand.isEnabled = true
+        commandCenter.playCommand.addTarget(self, action: #selector(MainViewController.play(_:)))
+        commandCenter.pauseCommand.isEnabled = true
+        commandCenter.pauseCommand.addTarget(self, action: #selector(MainViewController.play(_:)))
+        commandCenter.nextTrackCommand.isEnabled = true
+        commandCenter.nextTrackCommand.addTarget(self, action: #selector(MainViewController.next(_:)))
         
         updateScrubber()
         
